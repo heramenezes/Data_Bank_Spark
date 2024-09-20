@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Músicas</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1a1a1d;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ff6f61;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #ffb74d;
+            margin-bottom: 10px;
+        }
+
+        form {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #ffb74d;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 4px;
+            background-color: #444;
+            color: #fff;
+        }
+
+        input[type="submit"] {
+            background-color: #ff6f61;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #e65c53;
+        }
+
+        .message {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #4caf50;
+            border-radius: 4px;
+            color: white;
+        }
+
+        .error {
+            background-color: #f44336;
+            border-radius: 4px;
+            padding: 10px;
+            color: white;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #888;
+        }
+    </style>
+
+    <script>
+        function validarAno(input) {
+            var ano = input.value;
+            var anoAtual = new Date().getFullYear();
+            
+            // Verifica se o valor contém apenas números e se está entre 1900 e o ano atual
+            if (!/^\d{4}$/.test(ano) || ano < 1900 || ano > anoAtual) {
+                alert("Por favor, insira um ano válido entre 1900 e " + anoAtual);
+                input.value = '';
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Biblioteca Musical</h1>
+    
+    <h2>Adicionar Música</h2>
+    <form action='/musicas' method='post'>
+        <label for="nome">Nome:</label>
+        <input type='text' id='nome' name='nome' required><br>
+        <label for="genero">Gênero:</label>
+        <input type='text' id='genero' name='genero' required><br>
+        <label for="artista">Artista:</label>
+        <input type='text' id='artista' name='artista' required><br>
+        <label for="ano">Ano de Lançamento:</label>
+        <input type='text' id='ano' name='ano' onblur="validarAno(this)" required><br>
+        <input type='submit' value='Adicionar Música'>
+    </form>
+
+    <h2>Excluir Música</h2>
+    <form action='/musicas/delete' method='post'>
+        <label for="id-delete">ID:</label>
+        <input type='text' id='id-delete' name='id' required><br>
+        <input type='submit' value='Excluir Música'>
+    </form>
+
+    <h2>Atualizar Música</h2>
+    <form action='/musicas/update' method='post'>
+        <label for="id-update">ID:</label>
+        <input type='text' id='id-update' name='id' required><br>
+        <label for="nome-update">Nome:</label>
+        <input type='text' id='nome-update' name='nome'><br>
+        <label for="genero-update">Gênero:</label>
+        <input type='text' id='genero-update' name='genero'><br>
+        <label for="artista-update">Artista:</label>
+        <input type='text' id='artista-update' name='artista'><br>
+        <label for="ano-update">Ano de Lançamento:</label>
+        <input type='text' id='ano-update' name='ano' onblur="validarAno(this)"><br>
+        <input type='submit' value='Atualizar Música'>
+    </form>
+
+    <h2>Listar uma Música</h2>
+    <form action='/musicas/get' method='post'>
+        <label for="id-get">ID:</label>
+        <input type='text' id='id-get' name='id' required><br>
+        <input type='submit' value='Listar Música'>
+    </form>
+
+    <h2>Listar todas as Músicas</h2>
+    <form action='/musicas/all' method='post'>
+        <input type='submit' value='Listar Todas as Músicas'>
+    </form>
+
+    <footer>
+        <p>&copy; 2024 Biblioteca Musical. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>
